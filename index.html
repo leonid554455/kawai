@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fff4f9" />
+  <meta name="description" content="Маленькое аниме-пожелание выздоровления, созданное с теплом ♡" />
+  <title>Для тебя ♡ Поправляйся скорее!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+
+    :root {
+      color-scheme: light;
+      --pink: #f28caf;
+      --pink-deep: #e66d99;
+      --pink-pale: #ffeaf2;
+      --lavender: #b7a2e5;
+      --ink: #765a7c;
+      --muted: #9b819d;
+      --cream: #fffcf8;
+      --shadow: 0 28px 75px rgba(205, 130, 170, .18);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      margin: 0;
+      min-height: 100svh;
+      overflow-x: hidden;
+      color: var(--ink);
+      font-family: 'Nunito', 'Trebuchet MS', 'Segoe UI', sans-serif;
+      background:
+        radial-gradient(ellipse 32% 32% at 4% 12%, rgba(255, 218, 233, .82), transparent 95%),
+        radial-gradient(ellipse 26% 34% at 97% 86%, rgba(218, 203, 255, .65), transparent 96%),
+        linear-gradient(138deg, #fff8fc 0%, #fff3fa 42%, #f7f1ff 100%);
+    }
+    button { font: inherit; }
+    button:focus-visible { outline: 3px solid #aa89e6; outline-offset: 4px; }
+    .background-glow {
+      position: fixed; z-index: 0; border-radius: 50%; pointer-events: none;
+      filter: blur(8px); opacity: .58;
+    }
+    .glow-a { width: 220px; height: 220px; top: 17%; left: -130px; background: #ffd2e5; }
+    .glow-b { width: 270px; height: 270px; right: -180px; bottom: 9%; background: #dfd4ff; }
+
+    .shell { position: relative; z-index: 2; width: min(100% - 36px, 1050px); margin: 0 auto; }
+    .topbar {
+      min-height: 96px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; color: #a781ae; font-weight: 900; font-size: 14px; letter-spacing: .015em; }
+    .brand-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 12px; color: #e775a0; background: #fff; box-shadow: 0 5px 15px #ebd4e8; font-size: 23px; }
+    .top-note { color: #af95ae; background: #fff9; border: 1px solid #ffffffc9; border-radius: 999px; padding: 8px 14px; font-size: 12px; font-weight: 800; }
+    .tiny-star { color: #e7ab70; }
+
+    .hero { padding: 34px 0 76px; display: flex; align-items: center; justify-content: center; }
+    .card-wrap { width: min(100%, 830px); position: relative; isolation: isolate; }
+    .card-wrap::before, .card-wrap::after { content: ''; position: absolute; border-radius: 34px; inset: 16px -9px -13px; background: #ffdce9; transform: rotate(2.1deg); z-index: -2; }
+    .card-wrap::after { inset: 9px -3px -8px; background: #ede3ff; transform: rotate(-2.3deg); z-index: -1; }
+    .card {
+      position: relative; overflow: hidden;
+      width: 100%; min-height: 570px;
+      display: grid; grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      border-radius: 34px;
+      padding: 62px 36px 58px 55px;
+      border: 2px solid #fff;
+      box-shadow: var(--shadow), inset 0 1px 0 #fff;
+      background: linear-gradient(150deg, rgba(255,255,255,.99), rgba(255,250,252,.98) 60%, rgba(255,247,255,.97));
+    }
+    .card::before {
+      content:''; position:absolute; width: 440px; height: 440px; border-radius: 50%;
+      right: -95px; top: 65px; pointer-events:none;
+      background: radial-gradient(circle, #ffe7f1 0%, #ffedf6 54%, rgba(255,237,246,0) 72%);
+    }
+    .card::after { content:''; position:absolute; width: 120px; height: 120px; border-radius: 50%; left:-78px; top:-80px; background:#f9e5ff99; }
+    .card-content { position:relative; z-index: 3; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 9px;
+      background: #fff0f6; color: #d985a5;
+      border: 1px solid #ffe2ee; border-radius: 999px; padding: 8px 14px;
+      font-size: 12px; font-weight: 900; letter-spacing: .025em;
+    }
+    .eyebrow-heart { font-size: 15px; animation: heartBeat 2.4s ease-in-out infinite; }
+    h1 { margin: 23px 0 13px; font-size: clamp(39px, 5vw, 63px); line-height: 1.14; letter-spacing: -.047em; font-weight: 900; }
+    h1 .title-color { color: var(--pink-deep); display: inline-block; }
+    h1 .heart { font-size: .63em; color: #eeb6cf; vertical-align: 17%; transform: rotate(12deg); display: inline-block; }
+    .description { max-width: 350px; color: #9c829e; font-size: 16px; line-height: 1.85; font-weight: 700; margin: 0 0 29px; }
+    .cta-group { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+    .btn {
+      border: 0; min-height: 52px; border-radius: 17px; cursor: pointer; display: inline-flex;
+      align-items: center; justify-content: center; gap: 10px; padding: 0 20px;
+      font-size: 14px; font-weight: 900; transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn:active { transform: translateY(0) scale(.97); }
+    .btn-primary { background: linear-gradient(115deg, #f7a0be, #ea80a6); color:#fff; box-shadow: 0 9px 20px #ef97b7a0; }
+    .btn-primary:hover { box-shadow: 0 13px 25px #ef97b7bc; }
+    .btn-secondary { color:#bc8fc5; background: #f6effc; border: 1px solid #eee2fa; }
+    .btn-secondary:hover { background: #eee4fb; }
+    .little-caption { margin: 24px 0 0 2px; font-size: 12px; color: #bea8bd; font-weight: 800; }
+    .little-caption span { color: #eb9ebb; }
+
+    .art-area { position:relative; z-index:2; min-width:0; display:grid; place-items:center; align-self:stretch; }
+    .halo { position:absolute; width: 315px; height:315px; border-radius:50%; background: radial-gradient(circle, #ffe6f0 23%, #ffe8f2 49%, #ffe8f200 70%); left: 49%; top: 48%; transform:translate(-50%,-50%); }
+    .bunny-illustration { display:block; position:relative; z-index:2; width:min(100%, 350px); filter: drop-shadow(0 24px 18px #e3b4c36b); animation:bunnyFloat 4.3s ease-in-out infinite; }
+    .bunny-button { all:unset; display:grid; place-items:center; position:relative; z-index:2; cursor:pointer; border-radius: 50%; }
+    .bunny-button:focus-visible { outline: 3px solid #aa89e6; outline-offset: 4px; }
+    .bubble { position:absolute; z-index:5; top: 20px; right: -4px; background:#fff; border:1px solid #ffe5ee; box-shadow: 0 10px 27px #f6ccdf88; border-radius:17px 17px 17px 4px; padding: 10px 14px; color: #df8faf; font-size: 13px; font-weight:900; transform:rotate(6deg); white-space:nowrap; transition: transform .22s ease; }
+    .bunny-button:hover + .bubble, .bunny-button:focus-visible + .bubble { transform:rotate(0) scale(1.07); }
+    .art-star { position:absolute; z-index:3; font-size:22px; color:#e8b45f; animation:twinkle 2.9s ease-in-out infinite; pointer-events:none; }
+    .star-one { top:22%; left:5%; font-size:29px; }
+    .star-two { top:19%; right:5%; color:#b5a1de; animation-delay:.8s; }
+    .star-three { bottom:22%; right:-2%; font-size:18px; animation-delay:1.4s; }
+    .heart-doodle { position:absolute; z-index:1; top:36%; right:-4%; color:#f8aec8; font-size:55px; transform:rotate(16deg); opacity:.7; }
+    .floor-oval { position:absolute; width:225px; height:22px; border-radius:50%; bottom:10%; left:50%; transform:translateX(-50%); background:#dfb9c33d; filter: blur(9px); }
+
+    .bottom-strip { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin: 27px auto 0; }
+    .mini-chip { background:#ffffffba; border:1px solid #fff; border-radius:999px; padding:10px 15px; color:#ab91aa; box-shadow:0 7px 20px #e4cced55; font-size:12px; font-weight:900; }
+    .mini-chip b { color:#e98eb1; }
+
+    .flower { position:fixed; z-index:1; opacity:.54; pointer-events:none; color:#efa0bd; text-shadow:0 3px 5px #fff; animation: falling linear infinite; top:-12vh; user-select:none; }
+    .flower:nth-child(1) { left:6%; font-size:23px; animation-duration:13s; animation-delay:-7s; }
+    .flower:nth-child(2) { left:19%; font-size:15px; animation-duration:16s; animation-delay:-11s; color:#bca9e8; }
+    .flower:nth-child(3) { left:37%; font-size:19px; animation-duration:18s; animation-delay:-2s; }
+    .flower:nth-child(4) { left:62%; font-size:14px; animation-duration:14s; animation-delay:-8s; }
+    .flower:nth-child(5) { left:82%; font-size:25px; animation-duration:17s; animation-delay:-14s; }
+    .flower:nth-child(6) { left:94%; font-size:17px; animation-duration:12s; animation-delay:-5s; color:#c2b3e6; }
+
+    .toast { position:fixed; z-index:20; left:50%; bottom:30px; transform:translate(-50%,20px); width:max-content; max-width:min(calc(100% - 30px),410px); border-radius:20px; padding:14px 23px; box-shadow:0 12px 38px #d8abc5a0; text-align:center; font-weight:900; font-size:14px; line-height:1.5; color:#b078a0; background:#fff; border:1px solid #ffe9f2; opacity:0; pointer-events:none; transition:opacity .23s,transform .23s; }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+
+    .modal { position:fixed; inset:0; z-index:15; display:none; align-items:center; justify-content:center; padding:20px; background:#6d426d76; backdrop-filter:blur(9px); }
+    .modal.open { display:flex; animation:fadeIn .23s ease both; }
+    .letter { position:relative; max-height:min(92svh,690px); overflow-y:auto; width:min(100%,460px); background:linear-gradient(148deg,#fff,#fff8fc); border: 2px solid #fff; border-radius:29px; padding:40px 35px 34px; box-shadow:0 30px 110px #64466a5e; text-align:center; animation:letterIn .4s cubic-bezier(.19,1.28,.54,1) both; }
+    .close { position:absolute; top:14px; right:15px; width:35px; height:35px; border:0; border-radius:50%; background:#f9eaf4; color:#b88cad; font-size:24px; line-height:1; cursor:pointer; }
+    .envelope { width:82px; height:70px; margin:7px auto 13px; display:grid; place-items:center; font-size:57px; animation:bunnyFloat 3.3s ease-in-out infinite; }
+    .letter-kicker { color:#e79bb9; font-size:12px; letter-spacing:.16em; font-weight:900; text-transform:uppercase; }
+    .letter h2 { color:#da84a8; font-size:clamp(28px,6vw,36px); margin:10px 0 13px; line-height:1.2; letter-spacing:-.03em; }
+    .letter p { color:#977c9b; line-height:1.88; font-size:16px; font-weight:700; margin:0 0 14px; }
+    .letter strong { color:#e789af; }
+    .letter-sign { margin-top:17px; font-size:13px; font-weight:900; color:#c5abc6; }
+    .letter .btn { margin-top:20px; }
+    .burst-heart { position:fixed; z-index:30; pointer-events:none; animation:burst 1.3s ease-out forwards; font-size:22px; user-select:none; }
+    .footer { text-align:center; padding: 0 15px 26px; color:#c3afc6; font-size:11px; font-weight:800; }
+
+    @keyframes heartBeat { 0%,75%,100% {transform:scale(1)} 8%,24% {transform:scale(1.2)} 16% {transform:scale(.95)} }
+    @keyframes bunnyFloat { 0%,100% {transform:translateY(0) rotate(-1deg)} 50% {transform:translateY(-11px) rotate(1deg)} }
+    @keyframes twinkle { 0%,100% {opacity:.4;transform:scale(.8) rotate(-10deg)} 50% {opacity:1;transform:scale(1.15) rotate(8deg)} }
+    @keyframes falling { from {transform:translate3d(0,-8vh,0) rotate(0deg)} to {transform:translate3d(95px,120vh,0) rotate(280deg)} }
+    @keyframes fadeIn { from {opacity:0} to {opacity:1} }
+    @keyframes letterIn { from {opacity:0;transform:translateY(34px) scale(.91)} to {opacity:1;transform:translateY(0) scale(1)} }
+    @keyframes burst { 0%{opacity:1;transform:translate(0,0) scale(.45) rotate(0)} 65%{opacity:1} 100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.25) rotate(var(--rotation))} }
+
+    @media (max-width:760px) {
+      .topbar {min-height:74px;} .hero{padding:20px 0 60px;}
+      .card {grid-template-columns:1fr; padding:38px 24px 31px; text-align:center; min-height:0;}
+      .card::before {top:auto;bottom:-30px;right:50%;transform:translateX(50%);width:380px;height:380px;}
+      .card-content {grid-row:2;} .art-area {grid-row:1;height:255px;}
+      .bunny-illustration {width:245px;} .halo {width:265px;height:265px;}
+      .bubble {top:13px;right:14%;font-size:11px;padding:8px 10px;} .floor-oval {bottom:1%;}
+      .star-one{top:11%;left:15%;} .star-two{right:14%;top:18%;}
+      .eyebrow {font-size:11px;} h1{font-size:clamp(36px, 8.5vw, 51px); margin-top:19px;} .description{margin:0 auto 25px;font-size:15px;max-width:355px;}
+      .cta-group {justify-content:center;} .little-caption{margin-top:20px;}
+      .heart-doodle{right:9%;top:35%;font-size:40px;}
+    }
+    @media (max-width:410px) {
+      .shell{width:min(100% - 24px,1050px)} .brand{font-size:12px;} .top-note{font-size:10px;padding:8px 10px;}
+      .card{padding:28px 16px 31px;border-radius:26px;} .card-wrap::before,.card-wrap::after{border-radius:26px;}
+      .art-area{height:228px;} .bunny-illustration{width:220px;} .bubble{right:3%;}
+      .btn{min-height:49px;padding:0 15px;font-size:12px;} .description{font-size:14px;} .mini-chip{font-size:11px;padding:9px 12px;}
+      .letter{padding:40px 22px 27px;}
+    }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important;}
+      .flower{display:none;}
+    }
+  </style>
+</head>
+<body>
+  <div class="background-glow glow-a" aria-hidden="true"></div>
+  <div class="background-glow glow-b" aria-hidden="true"></div>
+  <div aria-hidden="true">
+    <span class="flower">✿</span><span class="flower">✦</span><span class="flower">✿</span>
+    <span class="flower">✿</span><span class="flower">✿</span><span class="flower">✦</span>
+  </div>
+
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="Вернуться к началу"><span class="brand-icon">♡</span> little care club</a>
+      <span class="top-note"><span class="tiny-star">✦</span> сделано с заботой</span>
+    </header>
+
+    <main id="home" class="hero">
+      <div class="card-wrap">
+        <article class="card" aria-label="Пожелание выздоровления">
+          <div class="card-content">
+            <div class="eyebrow"><span class="eyebrow-heart">♥</span> маленькое послание для тебя</div>
+            <h1>Поправляйся,<br><span class="title-color">солнышко!</span> <span class="heart">♡</span></h1>
+            <p class="description">Пусть тебе с каждым днём становится чуточку лучше. Отдыхай, береги себя и помни: ты заслуживаешь всего самого тёплого! <span aria-hidden="true">🌷</span></p>
+            <div class="cta-group">
+              <button class="btn btn-primary" id="open-letter" type="button">💌 Открыть письмецо</button>
+              <button class="btn btn-secondary" id="give-hug" type="button">♡ Обнимашка</button>
+            </div>
+            <p class="little-caption">p.s. этот зайчик очень хочет, чтобы ты улыбнулась <span>♥</span></p>
+          </div>
+
+          <div class="art-area">
+            <div class="halo" aria-hidden="true"></div>
+            <span class="art-star star-one" aria-hidden="true">✦</span>
+            <span class="art-star star-two" aria-hidden="true">✧</span>
+            <span class="art-star star-three" aria-hidden="true">✦</span>
+            <span class="heart-doodle" aria-hidden="true">♡</span>
+            <div class="floor-oval" aria-hidden="true"></div>
+
+            <button class="bunny-button" id="bunny" type="button" aria-label="Погладить зайчика, чтобы получить пожелание">
+              <svg class="bunny-illustration" viewBox="0 0 370 410" role="img" aria-labelledby="bunny-title" xmlns="http://www.w3.org/2000/svg">
+                <title id="bunny-title">Милый белый зайчик в розовом шарфике держит сердечко</title>
+                <!-- ears, softly outlined -->
+                <g stroke="#dcb4cb" stroke-width="4" stroke-linejoin="round">
+                  <path d="M120 154C94 115 83 49 103 27c19-19 43 10 53 35 9 26 13 66 10 97Z" fill="#fffdfd"/>
+                  <path d="M127 143c-14-29-25-81-17-96 12-11 30 34 36 55 4 16 5 31 4 43Z" fill="#ffccd9" stroke="none"/>
+                  <path d="M216 155c5-54 16-107 40-123 23-13 35 14 23 52-12 41-27 68-42 83Z" fill="#fffdfd"/>
+                  <path d="M229 145c8-48 25-91 38-99 12 1-9 63-31 101Z" fill="#ffccd9" stroke="none"/>
+                </g>
+                <!-- little bow on ear -->
+                <g transform="translate(245 62) rotate(15)">
+                  <path d="M0 5c-25-25-36-4-21 13 8 9 17 9 24 0C20 3 36 9 30 24 24 37 7 31 0 18Z" fill="#e899c4" stroke="#d586b4" stroke-width="2.5"/>
+                  <circle cx="2" cy="15" r="8" fill="#f8c3dd" stroke="#d586b4" stroke-width="2"/>
+                </g>
+                <!-- body -->
+                <ellipse cx="183" cy="323" rx="94" ry="69" fill="#fffdfd" stroke="#e1bbce" stroke-width="4"/>
+                <ellipse cx="126" cy="367" rx="40" ry="22" fill="#fffafa" stroke="#e1bbce" stroke-width="3.5"/>
+                <ellipse cx="235" cy="367" rx="40" ry="22" fill="#fffafa" stroke="#e1bbce" stroke-width="3.5"/>
+                <ellipse cx="128" cy="371" rx="14" ry="7" fill="#ffd7e5"/>
+                <ellipse cx="232" cy="371" rx="14" ry="7" fill="#ffd7e5"/>
+                <!-- head -->
+                <path d="M75 225c-12-68 30-130 110-132 82-3 123 59 113 126-7 53-48 93-111 94-62 1-102-29-112-88Z" fill="#fffdfd" stroke="#e1bbce" stroke-width="4.5"/>
+                <path d="M99 172c24-53 131-80 175 2" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="8" opacity=".9"/>
+                <!-- peachy cheeks -->
+                <ellipse cx="114" cy="244" rx="30" ry="19" fill="#ffb9cd" opacity=".7"/>
+                <ellipse cx="258" cy="244" rx="30" ry="19" fill="#ffb9cd" opacity=".7"/>
+                <g stroke="#df8eaa" stroke-width="2" stroke-linecap="round" opacity=".65">
+                  <path d="M102 241l7-5M112 247l8-5M249 247l8-5M260 241l7-5"/>
+                </g>
+                <!-- anime eyes -->
+                <ellipse cx="142" cy="221" rx="10" ry="15" fill="#74566d"/>
+                <ellipse cx="229" cy="221" rx="10" ry="15" fill="#74566d"/>
+                <ellipse cx="146" cy="215" rx="3.8" ry="5.2" fill="#fff"/>
+                <ellipse cx="233" cy="215" rx="3.8" ry="5.2" fill="#fff"/>
+                <ellipse cx="185" cy="237" rx="6.5" ry="4.7" fill="#de92ac"/>
+                <path d="M181 248q5 7 10 0" fill="none" stroke="#ba7796" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- cozy scarf -->
+                <path d="M104 280q82 25 158-4l-10 24q-66 40-137 6Z" fill="#f4acc7" stroke="#d989ad" stroke-width="3"/>
+                <path d="M224 292q10 26 7 55l26 4q-1-37-9-59Z" fill="#f2a2c2" stroke="#d989ad" stroke-width="2.7"/>
+                <path d="M241 345v12m9-11v12" stroke="#ce80a4" stroke-width="2"/>
+                <!-- heart held in paws -->
+                <path d="M183 344c-7-7-49-29-49-54 0-26 31-34 48-11 19-23 51-16 51 10 0 24-42 51-50 55Z" fill="#ff9dbb" stroke="#e982a7" stroke-width="3.5"/>
+                <path d="M154 290c4-9 14-12 21-7" fill="none" stroke="#ffe5ef" stroke-width="6" stroke-linecap="round"/>
+                <ellipse cx="128" cy="312" rx="25" ry="18" transform="rotate(28 128 312)" fill="#fffafa" stroke="#e1bbce" stroke-width="3"/>
+                <ellipse cx="239" cy="313" rx="25" ry="18" transform="rotate(-30 239 313)" fill="#fffafa" stroke="#e1bbce" stroke-width="3"/>
+                <path d="M128 306v7m-7-4 2 7m116-10v7m7-4-2 7" stroke="#e8b5cb" stroke-width="2" stroke-linecap="round"/>
+                <!-- floating heart -->
+                <path d="M304 159c-12-17-32-3-21 12l23 25 22-28c9-14-12-27-24-9Z" fill="#ffc5d7" opacity=".9"/>
+              </svg>
+            </button>
+            <span class="bubble" id="bunny-bubble" aria-hidden="true">ты справишься! ♡</span>
+          </div>
+        </article>
+        <div class="bottom-strip" aria-label="Маленькие напоминания">
+          <span class="mini-chip">🌸 <b>отдыхай</b> побольше</span>
+          <span class="mini-chip">☁️ береги <b>себя</b></span>
+          <span class="mini-chip">🍵 скоро будет <b>лучше</b></span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">маленький сайт с большой заботой ♡</footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <div class="modal" id="letter-modal" role="dialog" aria-modal="true" aria-labelledby="letter-title" aria-hidden="true">
+    <div class="letter">
+      <button class="close" id="close-letter" type="button" aria-label="Закрыть письмо">×</button>
+      <div class="envelope" aria-hidden="true">💌</div>
+      <div class="letter-kicker">тебе, от всего сердца</div>
+      <h2 id="letter-title">Маленькое письмо ♡</h2>
+      <p>🌷</p>
+      <p>Я просто хотел напомнить: <strong>сейчас самое важное — это ты и твоё самочувствие.</strong> Не торопись, отдыхай и разреши себе ничего не делать.</p>
+      <p>Пусть все неприятности останутся позади, а впереди будет много-много улыбок, уютных дней и маленьких поводов для счастья.</p>
+      <p><strong>Поправляйся скорее </strong>🐰💗</p>
+      <div class="letter-sign"></div>
+      <button class="btn btn-primary" id="send-hearts" type="button">💗 Поймать немного тепла</button>
+    </div>
+  </div>
+
+  <script>
+    // Все работает без библиотек: сохрани файл как index.html и открой в браузере.
+    const modal = document.getElementById('letter-modal');
+    const openLetter = document.getElementById('open-letter');
+    const closeLetter = document.getElementById('close-letter');
+    const hugButton = document.getElementById('give-hug');
+    const bunnyButton = document.getElementById('bunny');
+    const bubble = document.getElementById('bunny-bubble');
+    const toast = document.getElementById('toast');
+    const heartsButton = document.getElementById('send-hearts');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const warmMessages = [
+      'Лови самые мягкие обнимашки на свете! 🧸💗',
+      'Ты заслуживаешь отдыха, заботы и чего-нибудь вкусненького 🍓',
+      'Зайчик передаёт тебе +100 к хорошему настроению! 🐰',
+      'Сегодня можно просто отдыхать. Ты уже молодец 🌷',
+      'Пусть твой день станет чуточку уютнее ☁️',
+      'Ты обязательно ещё много-много раз улыбнёшься ♡'
+    ];
+    let messageIndex = 0;
+    let toastTimeout;
+    let previousFocus = null;
+
+    function showToast(message) {
+      clearTimeout(toastTimeout);
+      toast.textContent = message;
+      toast.classList.add('show');
+      toastTimeout = setTimeout(() => toast.classList.remove('show'), 3700);
+    }
+
+    function showerHearts(origin = null) {
+      if (reducedMotion) return;
+      const sourceRect = origin?.getBoundingClientRect();
+      const centerX = sourceRect ? sourceRect.left + sourceRect.width / 2 : window.innerWidth / 2;
+      const centerY = sourceRect ? sourceRect.top + sourceRect.height / 2 : window.innerHeight / 2;
+      const symbols = ['💗', '♡', '🌸', '✦', '💖', '✨'];
+      for (let i = 0; i < 20; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'burst-heart';
+        heart.textContent = symbols[i % symbols.length];
+        heart.style.left = `${centerX + (Math.random() - .5) * 50}px`;
+        heart.style.top = `${centerY + (Math.random() - .5) * 35}px`;
+        heart.style.setProperty('--dx', `${(Math.random() - .5) * 390}px`);
+        heart.style.setProperty('--dy', `${(Math.random() - .5) * 360 - 80}px`);
+        heart.style.setProperty('--rotation', `${(Math.random() - .5) * 130}deg`);
+        heart.style.animationDelay = `${Math.random() * .17}s`;
+        heart.style.fontSize = `${15 + Math.random() * 13}px`;
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1650);
+      }
+    }
+
+    function openModal() {
+      previousFocus = document.activeElement;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      closeLetter.focus();
+      showerHearts(openLetter);
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      previousFocus?.focus();
+    }
+
+    openLetter.addEventListener('click', openModal);
+    closeLetter.addEventListener('click', closeModal);
+    modal.addEventListener('click', event => {
+      if (event.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', event => {
+      if (!modal.classList.contains('open')) return;
+      if (event.key === 'Escape') closeModal();
+      if (event.key === 'Tab') {
+        const focusables = [closeLetter, heartsButton];
+        const index = focusables.indexOf(document.activeElement);
+        if (event.shiftKey && (index <= 0)) {
+          event.preventDefault();
+          heartsButton.focus();
+        } else if (!event.shiftKey && index === focusables.length - 1) {
+          event.preventDefault();
+          closeLetter.focus();
+        }
+      }
+    });
+    hugButton.addEventListener('click', () => {
+      showToast(warmMessages[messageIndex++ % warmMessages.length]);
+      showerHearts(hugButton);
+    });
+    bunnyButton.addEventListener('click', () => {
+      const messages = ['мур-мур, выздоравливай ♡', 'ты умничка! 🌸', 'обнимаю лапками 🐾', 'береги себя! ♡'];
+      bubble.textContent = messages[messageIndex++ % messages.length];
+      showToast('Зайчик счастлив! Он посылает тебе удачу 🐰💗');
+      showerHearts(bunnyButton);
+    });
+    heartsButton.addEventListener('click', () => {
+      showToast('Это тебе — целый миллион маленьких сердечек! 💗');
+      showerHearts(heartsButton);
+    });
+  </script>
+</body>
+</html>
